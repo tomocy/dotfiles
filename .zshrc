@@ -31,6 +31,7 @@ export DOCKER_BUILDKIT=1
 
 alias ls='exa'
 alias cat='bat --plain --theme ansi-dark'
+alias grep='rg'
 alias tomocy='cd $TOMOCY'
 alias github='cd $GITHUB'
 alias notify='terminal-notifier -message Completed! -sound default'
