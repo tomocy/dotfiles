@@ -28,6 +28,7 @@ export PATH=$GITHUB/istio-1.6.0/bin:$PATH
 export PATH=$HOME/.wasme/bin:$PATH
 
 export DOCKER_BUILDKIT=1
+export CLOUDSDK_PYTHON=python3.8
 
 alias ls='exa'
 alias cat='bat --plain --theme ansi-dark'
