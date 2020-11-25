@@ -21,6 +21,8 @@ export PATH=$GOBIN:$PATH
 export GODIR=$CODES/src/go.googlesource.com/go
 export GOHEAD=$GODIR/bin/go
 
+export PATH="$HOME/.cargo/bin:$PATH"
+
 export FLUTTERDIR=$GITHUB/flutter/flutter
 export PATH=$FLUTTERDIR/bin:$FLUTTERDIR/.pub-cache/bin:$FLUTTERDIR/bin/cache/dart-sdk/bin:$PATH
 
