@@ -35,9 +35,11 @@ export PATH=$HOME/.wasme/bin:$PATH
 export DOCKER_BUILDKIT=1
 export CLOUDSDK_PYTHON=python3.8
 
+export LESSCHARSET=utf-8
+export GIT_PAGER='bat --plain --theme ansi-dark'
+
 alias ls='exa'
 alias cat='bat --plain --theme ansi-dark'
-alias less='bat --plain --theme ansi-dark'
 alias grep='rg'
 alias tomocy='cd $TOMOCY'
 alias github='cd $GITHUB'
