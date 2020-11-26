@@ -26,6 +26,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export FLUTTERDIR=$GITHUB/flutter/flutter
 export PATH=$FLUTTERDIR/bin:$FLUTTERDIR/.pub-cache/bin:$FLUTTERDIR/bin/cache/dart-sdk/bin:$PATH
 
+export PATH=/usr/local/opt/ruby/bin:$PATH
+export PATH=/usr/local/lib/ruby/gems/2.7.0/bin:$PATH
+
 export PATH=$GITHUB/istio-1.6.0/bin:$PATH
 export PATH=$HOME/.wasme/bin:$PATH
 
