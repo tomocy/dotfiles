@@ -20,6 +20,7 @@ export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
 export GODIR=$CODES/src/go.googlesource.com/go
 export GOHEAD=$GODIR/bin/go
+export GOROOT=/usr/local/opt/go/libexec
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
