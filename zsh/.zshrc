@@ -49,7 +49,7 @@ alias tomocy='cd $TOMOCY'
 alias github='cd $GITHUB'
 alias notify='terminal-notifier -message Completed! -sound default'
 
-[ -f $TOMOCY/zsh-fzf/fzf.zsh ] && source $TOMOCY/zsh-fzf/fzf.zsh
+[ -f $HOME/.config/zsh/fzf.zsh ] && source $HOME/.config/zsh/fzf.zsh
 
 source <(kubectl completion zsh)
 
