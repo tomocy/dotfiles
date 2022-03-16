@@ -1,9 +1,9 @@
 add_newline = false
 
 [character]
-success_symbol = "[-➜](bold blue)"
-error_symbol = "[-➜](bold red)"
-vicmd_symbol = "[←-](bold blue)"
+success_symbol = "[->](bold green)"
+error_symbol = "[->](bold red)"
+vicmd_symbol = "[<-](bold green)"
 
 [aws]
 disabled = true
@@ -15,7 +15,7 @@ disabled = true
 disabled = true
 
 [cmd_duration]
-disabled = true
+format = "[$duration]($style) "
 
 [conda]
 disabled = true
@@ -48,7 +48,9 @@ disabled = true
 disabled = true
 
 [git_branch]
-disabled = true
+format = "[$symbol$branch]($style) "
+symbol = ""
+style = "bold green"
 
 [git_commit]
 disabled = true
