@@ -1,3 +1,6 @@
+fish: fish/config.fish
+	cat fish/config.fish > ~/.config/fish/config.fish
+
 starship: starship/starship.toml
 	cat starship/starship.toml > ~/.config/starship.toml
 

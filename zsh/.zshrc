@@ -62,3 +62,7 @@ if [ -f '/Users/tomocy/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/tomocy/g
 if [ -f '/Users/tomocy/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tomocy/google-cloud-sdk/completion.zsh.inc'; fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [[ -o interactive ]]; then
+  exec fish
+fi
