@@ -1,3 +1,5 @@
+#! /usr/local/bin/fish
+
 set fish_greeting
 
 # Theme
@@ -28,18 +30,17 @@ set -U fish_pager_color_completion normal
 set -U fish_pager_color_description yellow
 set -U fish_pager_color_selected_background green
 
-# Utils
-set BAT_DEFAULT_OPTS '--plain --theme ansi-dark --color always'
-set --export PAGER "bat $BAT_DEFAULT_OPTS"
-
-abbr --add ls exa
-abbr --add cat "bat $BAT_DEFAULT_OPTS"
-abbr --add g git
-abbr --add grep rg
-abbr --add vi nvim
-
-# FZF
-set -U FZF_FIND_FILE_COMMAND "fd --hidden --follow --exclude .git . \$dir"
+if [ "$TERM_PROGRAM" = Apple_Terminal ]
+    set COLOR_BLACK 0
+    set COLOR_GREEN 2
+    set COLOR_BLUE 4
+    set COLOR_WHITE 7
+else
+    set COLOR_BLACK "#000000"
+    set COLOR_GREEN "#00ffd8"
+    set COLOR_BLUE "#09e7fb"
+    set COLOR_WHITE "#ffffff"
+end
 
 # Key bindings
 bind \t accept-autosuggestion
@@ -52,4 +53,37 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+# Misc
+set --export BAT_DEFAULT_OPTS '--plain --theme ansi-dark --color always'
+set --export PAGER "bat $BAT_DEFAULT_OPTS"
+set --export LESSCHARSET utf-8
+set --export DOCKER_BUILDKIT 1
+
+abbr --add ls exa
+abbr --add cat "bat $BAT_DEFAULT_OPTS"
+abbr --add g git
+abbr --add grep rg
+abbr --add vi nvim
+
+# FZF
+set --export FZF_DEFAULT_OPTS "--layout=reverse \
+--extended \
+--cycle \
+--tac \
+--ansi \
+--prompt='-> ' \
+--bind=alt-up:preview-up,alt-down:preview-down \
+--color fg:$COLOR_WHITE,fg+:$COLOR_GREEN \
+--color bg:$COLOR_BLACK,bg+:$COLOR_BLACK \
+--color hl:$COLOR_GREEN,hl+:$COLOR_GREEN \
+--color pointer:$COLOR_BLUE,marker:$COLOR_GREEN,spinner:$COLOR_BLUE \
+--color info:$COLOR_GREEN,prompt:$COLOR_BLUE,header:$COLOR_WHITE"
+set --export FZF_DEFAULT_COMMAND "fd --hidden --follow --exclude .git . ."
+set --export FZF_FIND_FILE_COMMAND "fd --hidden --follow --exclude .git . \$dir"
+
+# Starship
 starship init fish | source
+
+# Go
+set --export GOPATH "$HOME/Codes"
+set --export GOBIN "$GOPATH/bin"

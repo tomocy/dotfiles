@@ -20,7 +20,6 @@ export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
 export GODIR=$CODES/src/go.googlesource.com/go
 export GOHEAD=$GODIR/bin/go
-export GOROOT=/usr/local/opt/go/libexec
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -62,7 +61,3 @@ if [ -f '/Users/tomocy/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/tomocy/g
 if [ -f '/Users/tomocy/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tomocy/google-cloud-sdk/completion.zsh.inc'; fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if [[ -o interactive ]]; then
-  exec fish
-fi
