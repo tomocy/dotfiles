@@ -1,63 +1,39 @@
-PROMPT="%c -➜ "
-PROMPT_EOL_MARK=""
+#!/bin/bash
 
-autoload -U compinit
-compinit -u
 autoload colors
-zstyle ':completion:*' verbose yes
-setopt hist_ignore_dups
 
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 
-export CODES=$HOME/Codes
-export GITHUB=$CODES/src/github.com
-export TOMOCY=$GITHUB/tomocy
-
-export GO111MODULE=on
-export GOPATH=$CODES
-export GOBIN=$GOPATH/bin
-export PATH=$GOBIN:$PATH
-export GODIR=$CODES/src/go.googlesource.com/go
-export GOHEAD=$GODIR/bin/go
-
-export PATH="$HOME/.cargo/bin:$PATH"
-
-export FLUTTERDIR=$GITHUB/flutter/flutter
-export PATH=$FLUTTERDIR/bin:$FLUTTERDIR/.pub-cache/bin:$FLUTTERDIR/bin/cache/dart-sdk/bin:$PATH
-
-export PATH=/usr/local/opt/ruby/bin:$PATH
-export PATH=/usr/local/lib/ruby/gems/2.7.0/bin:$PATH
-
-export PATH=$GITHUB/istio-1.6.0/bin:$PATH
-export PATH=$HOME/.wasme/bin:$PATH
-
-export DOCKER_BUILDKIT=1
-export CLOUDSDK_PYTHON=python3.8
-
 export LESSCHARSET=utf-8
 
-export BAT_DEFAULT_OPTS='--plain --theme ansi-dark --color always'
+if [[ "$TERM_PROGRAM" = "Apple_Terminal" ]]; then
+  export COLOR_BLACK=0
+  export COLOR_GREEN=2
+  export COLOR_BLUE=4
+  export COLOR_WHITE=7
+else
+  export COLOR_BLACK="#000000"
+  export COLOR_GREEN="#00ffd8"
+  export COLOR_BLUE="#09e7fb"
+  export COLOR_WHITE="#ffffff"
+fi
 
-export GIT_PAGER="bat $BAT_DEFAULT_OPTS"
-
-alias ls='exa'
-alias cat="bat $BAT_DEFAULT_OPTS"
-alias grep='rg'
-alias tomocy='cd $TOMOCY'
-alias github='cd $GITHUB'
-alias notify='terminal-notifier -message Completed! -sound default'
-
-[ -f $HOME/.config/zsh/fzf.zsh ] && source $HOME/.config/zsh/fzf.zsh
-
-source <(kubectl completion zsh)
-
+export PROMPT="%c -➜ "
+export PROMPT_EOL_MARK=""
 eval "$(starship init zsh)"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/tomocy/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/tomocy/google-cloud-sdk/path.zsh.inc'; fi
+export BAT_DEFAULT_OPTS='--plain --theme ansi-dark --color always'
+BAT="bat $BAT_DEFAULT_OPTS"
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/tomocy/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tomocy/google-cloud-sdk/completion.zsh.inc'; fi
+export PAGER="$BAT"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export DOCKER_BUILDKIT=1
+
+alias ls='exa'
+alias grep='rg'
+# shellcheck disable=SC2139
+alias cat="$BAT"
+
+# shellcheck disable=SC1091
+source "$HOME/.config/zsh/fzf.zsh"

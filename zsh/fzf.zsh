@@ -8,17 +8,6 @@ export FZF_DEFAULT_OPTS="--layout=reverse \
 --prompt='-> ' \
 --bind=alt-up:preview-up,alt-down:preview-down"
 
-if [[ "$TERM_PROGRAM" = "Apple_Terminal" ]]; then
-  COLOR_BLACK=0
-  COLOR_GREEN=2
-  COLOR_BLUE=4
-  COLOR_WHITE=7
-else
-  COLOR_BLACK="#000000"
-  COLOR_GREEN="#00ffd8"
-  COLOR_BLUE="#09e7fb"
-  COLOR_WHITE="#ffffff"
-fi
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 --color fg:$COLOR_WHITE,fg+:$COLOR_GREEN \
 --color bg:$COLOR_BLACK,bg+:$COLOR_BLACK \
@@ -27,24 +16,49 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 --color info:$COLOR_GREEN,prompt:$COLOR_BLUE,header:$COLOR_WHITE"
 
 export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git . ."
+export FZF_FIND_FILE_COMMAND="fd --hidden --follow --exclude .git . \$dir"
 
-alias fcat="fzf --preview 'bat $BAT_DEFAULT_OPTS {}'"
+function fzf_find_file() {
+  local args=()
+  IFS=' ' read -r -A args <<< "$BUFFER"
 
-fadd() {
-  local files
-  files=$(git ls-files --deleted --modified --others --exclude-standard | fzf --preview 'git diff --color=always {}' --multi)
-  files=$(printf "$files" | tr '\n' ' ')
-  [[ -n "$files" ]] && print -z "git add $files"
+  local raw_arg
+  raw_arg="${args[-1]}"
+
+  local arg
+  arg=$(eval printf '%s' "$raw_arg")
+
+  local target
+  local query
+  if [ -z "$arg" ]; then
+    target='.'
+    query=''
+  else
+    local raw_target
+    raw_target=$(echo "$arg" | grep -o '[^ ]+$')
+
+    target="$raw_target"
+    while [ ! -d "$target" ]; do
+      target=$(dirname "$target")
+    done
+
+    query=${raw_target#"$target"}
+    query=${query#'/'}
+  fi
+
+  local result
+  result=$(eval "fd --hidden --follow --exclude .git . $target | fzf $FZF_DEFAULT_OPTS --query \"$query\"")
+
+  if [ -z "$arg" ]; then
+    BUFFER="$BUFFER$result"
+  else
+    BUFFER=${BUFFER/"$raw_arg"/"$result"}
+  fi
+
+  # shellcheck disable=SC2034
+  CURSOR=${#BUFFER}
+  zle redisplay
 }
 
-fshow() {
-  git log --color=always --pretty=format:"%C(auto)%h%d %s %C(black)%C(bold)%cr" |
-    fzf --preview 'echo {} | awk '"'"'{print $1}'"'"' | xargs git show --color=always' |
-    awk '{print $1}'
-}
-
-frebase() {
-  local chash
-  chash=$(fshow)
-  [[ -n "$chash" ]] && print -z "git rebase -i $chash"
-}
+zle -N fzf_find_file
+bindkey '^[t' fzf_find_file
