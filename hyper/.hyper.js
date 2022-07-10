@@ -90,7 +90,7 @@ module.exports = {
         //
         // Cygwin
         // - Example: `C:\\cygwin64\\bin\\bash.exe`
-        shell: '/usr/local/bin/fish',
+        shell: '/bin/zsh',
         // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
         // by default `['--login']` will be used
         shellArgs: ['--login'],
@@ -144,8 +144,8 @@ module.exports = {
     // to load it and avoid it being `npm install`ed
     localPlugins: [],
     keymaps: {
-    // Example
-    // 'window:devtools': 'cmd+alt+o',
+        // Example
+        // 'window:devtools': 'cmd+alt+o',
     },
 };
 //# sourceMappingURL=config-default.js.map
