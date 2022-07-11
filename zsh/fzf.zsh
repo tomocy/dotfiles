@@ -18,6 +18,14 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git . ."
 export FZF_FIND_FILE_COMMAND="fd --hidden --follow --exclude .git . \$dir"
 
+function fzf_find_history() {
+  local result
+  result=$(history -n 0 | fzf)
+  BUFFER="$result"
+  CURSOR=${#BUFFER}
+  zle redisplay
+}
+
 function fzf_find_file() {
   local args=()
   IFS=' ' read -r -A args <<< "$BUFFER"
@@ -59,6 +67,9 @@ function fzf_find_file() {
   CURSOR=${#BUFFER}
   zle redisplay
 }
+
+zle -N fzf_find_history
+bindkey '^[r' fzf_find_history
 
 zle -N fzf_find_file
 bindkey '^[t' fzf_find_file
