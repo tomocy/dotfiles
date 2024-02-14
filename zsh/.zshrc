@@ -28,14 +28,13 @@ export PROMPT="%c -➜ "
 export PROMPT_EOL_MARK=""
 eval "$(starship init zsh)"
 
-export BAT_DEFAULT_OPTS='--plain --theme ansi-dark --color always'
+export BAT_DEFAULT_OPTS='--plain --theme ansi --color always'
 BAT="bat $BAT_DEFAULT_OPTS"
 
 export PAGER="$BAT"
 
 export DOCKER_BUILDKIT=1
 
-alias ls='exa'
 alias grep='rg'
 # shellcheck disable=SC2139
 alias cat="$BAT"
